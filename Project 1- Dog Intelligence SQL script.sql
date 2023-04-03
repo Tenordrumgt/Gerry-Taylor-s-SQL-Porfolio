@@ -14,6 +14,7 @@ CREATE TABLE iq (
     reps_upper INT,
     FOREIGN KEY (id) REFERENCES akc(DogID));
     
+    
 -- Created a quicker view from the joined Tables
 CREATE VIEW joined_table As
 	SELECT *
@@ -21,10 +22,12 @@ CREATE VIEW joined_table As
 	JOIN iq
 		ON iq.id = akc.DogID;
 
+
 -- Pulling certain columns from the created view to look at all the top performing breeds
 SELECT breed, classification, obey
 FROM joined_table
 WHERE classification = 'Brightest Dogs';
+
 
 -- Adding the AKC size catergory to the querry and ordering from descending order to input as a view
 CREATE VIEW size AS
@@ -40,6 +43,7 @@ FROM joined_table
 WHERE obey IS NOT NULL 
 	AND weight_low IS NOT NULL
 ORDER BY size_group DESC, obey DESC;
+
 
 -- Using the size view to see the count of iq classification and size_group while grouping the variables together
 SELECT size_group, classification, COUNT(*)
